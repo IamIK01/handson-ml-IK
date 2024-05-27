@@ -7,7 +7,7 @@ def set_seed(seed: int=42)-> None:
     tf.random.set_seed(42)
     np.random.seed(42)
 
-def show_random_images(n: int,  x: np.ndarray, y: np.ndarray, a=None, b=None, figsize=(15, 15)):
+def show_random_images(n: int,  x: np.ndarray, y: np.ndarray, a=None, b=None, figsize=(15, 15), class_names=None):
     indices = np.random.choice(np.arange(x.shape[0]), n, replace=False)
     images = x[indices]
     labels = y[indices]
@@ -27,7 +27,9 @@ def show_random_images(n: int,  x: np.ndarray, y: np.ndarray, a=None, b=None, fi
         plt.yticks([])
         plt.grid(False)
         plt.imshow(images[i])
-        plt.xlabel(class_names[np.argmax(labels[i])])
+        if class_names is not None:
+            plt.xlabel(class_names[np.argmax(labels[i])])
+        plt.xlabel(np.argmax(labels[i])+1)
     plt.show()
 
 # Function to create directory for storing models and training data
